@@ -1,7 +1,7 @@
 // Copyright (c) Mysten Labs, Inc.
 // SPDX-License-Identifier: Apache-2.0
 
-import { Base64DataBuffer } from '@mysten/sui.js';
+import { Base64DataBuffer, type MoveActiveValidator } from '@mysten/sui.js';
 import { useMemo } from 'react';
 
 import type { ActiveValidator } from '~/pages/validator/ValidatorDataTypes';
@@ -14,7 +14,7 @@ import { Text } from '~/ui/Text';
 import { getName } from '~/utils/getName';
 
 type ValidatorMetaProps = {
-    validatorData: ActiveValidator;
+    validatorData: MoveActiveValidator;
 };
 
 export function ValidatorMeta({ validatorData }: ValidatorMetaProps) {

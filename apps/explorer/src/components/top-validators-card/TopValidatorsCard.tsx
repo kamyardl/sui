@@ -1,18 +1,20 @@
 // Copyright (c) Mysten Labs, Inc.
 // SPDX-License-Identifier: Apache-2.0
 
-import { is, SuiObject } from '@mysten/sui.js';
 import { useMemo } from 'react';
+import {
+    is,
+    SuiObject,
+    type MoveSuiSystemObjectFields,
+    type MoveActiveValidator,
+} from '@mysten/sui.js';
+import { VALIDATORS_OBJECT_ID } from '~/pages/validator/ValidatorDataTypes';
 
 import { ReactComponent as ArrowRight } from '../../assets/SVGIcons/12px/ArrowRight.svg';
 import { StakeColumn } from './StakeColumn';
 
 import { useGetObject } from '~/hooks/useGetObject';
-import {
-    VALIDATORS_OBJECT_ID,
-    type ValidatorsFields,
-    type ActiveValidator,
-} from '~/pages/validator/ValidatorDataTypes';
+
 import { Banner } from '~/ui/Banner';
 import { ImageIcon } from '~/ui/ImageIcon';
 import { ValidatorLink } from '~/ui/InternalLink';
@@ -25,7 +27,7 @@ import { getStakedPercent } from '~/utils/getStakedPercent';
 
 const NUMBER_OF_VALIDATORS = 10;
 
-export function processValidators(set: ActiveValidator[], totalStake: bigint) {
+export function processValidators(set: MoveActiveValidator[], totalStake: bigint) {
     return set.map((av) => {
         const rawName = av.fields.metadata.fields.name;
         return {
@@ -39,7 +41,7 @@ export function processValidators(set: ActiveValidator[], totalStake: bigint) {
 }
 
 const validatorsTable = (
-    validatorsData: ValidatorsFields,
+    validatorsData: MoveSuiSystemObjectFields,
     limit?: number,
     showIcon?: boolean
 ) => {
@@ -114,7 +116,7 @@ export function TopValidatorsCard({ limit, showIcon }: TopValidatorsCardProps) {
         data &&
         is(data.details, SuiObject) &&
         data.details.data.dataType === 'moveObject'
-            ? (data.details.data.fields as ValidatorsFields)
+            ? (data.details.data.fields as MoveSuiSystemObjectFields)
             : null;
 
     const tableData = useMemo(

@@ -10,9 +10,13 @@ import { DelegationAmount } from '~/components/validator/DelegationAmount';
 import { calculateAPY } from '~/components/validator/calculateAPY';
 import { useGetObject } from '~/hooks/useGetObject';
 import {
-    VALIDATORS_OBJECT_ID,
-    type ValidatorsFields,
-} from '~/pages/validator/ValidatorDataTypes';
+    is,
+    SuiObject,
+    type MoveSuiSystemObjectFields,
+    type MoveActiveValidator,
+} from '@mysten/sui.js';
+import { VALIDATORS_OBJECT_ID } from '~/pages/validator/ValidatorDataTypes';
+
 import { Banner } from '~/ui/Banner';
 import { Card } from '~/ui/Card';
 import { Heading } from '~/ui/Heading';
@@ -27,7 +31,7 @@ import { getName } from '~/utils/getName';
 
 const ValidatorMap = lazy(() => import('../../components/node-map'));
 
-function ValidatorPageResult() {
+function ValidatorPageResult(validators: MoveActiveValidator[], epoch: number) {
     const { data, isLoading, isSuccess, isError } =
         useGetObject(VALIDATORS_OBJECT_ID);
 
@@ -35,7 +39,7 @@ function ValidatorPageResult() {
         data &&
         is(data.details, SuiObject) &&
         data.details.data.dataType === 'moveObject'
-            ? (data.details.data.fields as ValidatorsFields)
+            ? (data.details.data.fields as MoveActiveValidator)
             : null;
 
     const totalStake = validatorsData?.validators.fields.total_validator_stake;

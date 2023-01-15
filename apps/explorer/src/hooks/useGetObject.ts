@@ -4,6 +4,7 @@
 import {
     type GetObjectDataResponse,
     normalizeSuiAddress,
+    type MoveActiveValidator,
 } from '@mysten/sui.js';
 import { useQuery, type UseQueryResult } from '@tanstack/react-query';
 

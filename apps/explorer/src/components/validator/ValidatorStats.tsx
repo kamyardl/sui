@@ -6,7 +6,7 @@ import { useMemo } from 'react';
 import { DelegationAmount } from './DelegationAmount';
 import { calculateAPY } from './calculateAPY';
 
-import type { ActiveValidator } from '~/pages/validator/ValidatorDataTypes';
+import type { MoveActiveValidator } from '~/pages/validator/ValidatorDataTypes';
 
 import { Card } from '~/ui/Card';
 import { Heading } from '~/ui/Heading';
@@ -14,7 +14,7 @@ import { Stats } from '~/ui/Stats';
 import { getStakedPercent } from '~/utils/getStakedPercent';
 
 type StatsCardProps = {
-    validatorData: ActiveValidator;
+    validatorData: MoveActiveValidator;
     totalValidatorStake: string;
     epoch: number | string;
 };

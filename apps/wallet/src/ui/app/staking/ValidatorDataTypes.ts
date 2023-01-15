@@ -11,6 +11,9 @@ export type ValidatorMetadata = {
         pubkey_bytes: string;
         sui_address: string;
         next_epoch_delegation: number;
+        balance: Value;
+        current_epoch_amount: number;
+        epoch_counter: number;
     };
 };
 
@@ -52,6 +55,10 @@ export type Validator = {
     };
 };
 
+export interface SuiSupplyFields {
+    value: number;
+}
+
 export type SystemParams = {
     type: '0x2::sui_system::SystemParameters';
     fields: {
@@ -78,4 +85,55 @@ export type ValidatorState = {
             total_validator_stake: bigint;
         };
     };
+    voting_power: string | null;
+
 };
+
+
+export interface DelegationStakingPoolFields {
+    delegation_token_supply: SuiSupplyFields;
+    pending_delegations: ContentsFields;
+    pending_withdraws: PendingDelegationsFields;
+    rewards_pool: Value;
+    starting_epoch: number;
+    sui_balance: number;
+    validator_address: string;
+}
+
+
+export interface Value {
+    value: number;
+}
+
+export interface PendingDelegationsFields {
+    contents: ContentsFieldsWithdraw;
+}
+
+export interface ContentsFieldsWithdraw {
+    id: string;
+    size: number;
+}
+
+}
+
+export interface ContentsFields {
+    id: string;
+    size: number;
+    head: Vector;
+    tail: Vector;
+}
+
+export interface Vector {
+    vec: any[];
+}
+
+export interface NextEpochValidatorFields {
+    consensus_address: number[];
+    name: number[] | string;
+    image_url?: number[] | string | null;
+    description?: number[] | string | null;
+    project_url?: number[] | string | null;
+    net_address: number[];
+    network_pubkey_bytes: number[];
+    next_epoch_commission_rate: string;
+}
